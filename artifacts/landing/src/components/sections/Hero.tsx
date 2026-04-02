@@ -55,9 +55,10 @@ export default function Hero() {
             <motion.span
               key={i}
               initial={{ y: 120, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
+              whileInView={{ y: 0, opacity: 1 }}
+              viewport={{ once: true }}
               transition={{
-                delay: 0.2 + i * 0.04,
+                delay: 0.1 + i * 0.04,
                 duration: 0.9,
                 ease: [0.21, 0.47, 0.32, 0.98]
               }}
@@ -68,15 +69,18 @@ export default function Hero() {
           ))}
         </motion.div>
         
-        <motion.p
-          initial={{ y: 30, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 1.2, duration: 0.8 }}
-          className="text-lg md:text-2xl text-muted-foreground max-w-2xl font-light leading-relaxed"
-        >
-          We build digital experiences that refuse to be ignored. <br className="hidden md:block"/>
-          Confident design, bold engineering, and zero compromises.
-        </motion.p>
+        <div className="overflow-hidden">
+          <motion.p
+            initial={{ y: 60, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.3, duration: 0.9, ease: "easeOut" }}
+            className="text-lg md:text-2xl text-muted-foreground max-w-2xl font-light leading-relaxed"
+          >
+            We build digital experiences that refuse to be ignored. <br className="hidden md:block"/>
+            Confident design, bold engineering, and zero compromises.
+          </motion.p>
+        </div>
       </motion.div>
       
       <motion.div 

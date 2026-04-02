@@ -4,6 +4,7 @@ import SplineHero from "@/components/sections/SplineHero";
 import Hero from "@/components/sections/Hero";
 import Marquee from "@/components/sections/Marquee";
 import About from "@/components/sections/About";
+import SplineCarousel from "@/components/sections/SplineCarousel";
 import Work from "@/components/sections/Work";
 import Services from "@/components/sections/Services";
 import Contact from "@/components/sections/Contact";
@@ -23,6 +24,7 @@ export default function Landing() {
         <SplineHero />
         <Hero />
         <Marquee />
+        <SplineCarousel />
         <About />
         <Work />
         <Services />
