@@ -51,21 +51,27 @@ export default function Contact() {
     setIsSubmitting(true);
     
     // Simulate Sanitization & Secure Handling
-    // Senior Note: React's default rendering handles most XSS, 
-    // but we can explicitly strip tags for extra security if needed.
     const sanitize = (str: string) => str.replace(/<[^>]*>?/gm, "").trim();
     
     const securePayload = {
-        name: sanitize(data.name),
-        email: data.email.toLowerCase().trim(),
-        message: sanitize(data.message),
+      name: sanitize(data.name),
+      email: data.email.toLowerCase().trim(),
+      message: sanitize(data.message),
     };
 
     try {
-      // Simulate API call with artificial "Senior" delay for UX and bot deterrence
-      await new Promise((resolve) => setTimeout(resolve, 1500));
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(securePayload),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to send message');
+      }
       
-      console.log("Secure Payload:", securePayload);
       setIsSuccess(true);
       toast.success("Message sent securely!", {
         description: "We'll get back to you shortly.",
@@ -75,8 +81,8 @@ export default function Contact() {
       // Reset success state after 5 seconds
       setTimeout(() => setIsSuccess(false), 5000);
     } catch (error) {
-      toast.error("An error occurred.", {
-        description: "Please try again later.",
+      toast.error("Message delivery failed.", {
+        description: "Please check your connection and try again.",
       });
     } finally {
       setIsSubmitting(false);
@@ -89,9 +95,9 @@ export default function Contact() {
 
       <div className="container mx-auto px-4 md:px-8 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
-          
+
           {/* Left Column - Info */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
@@ -105,13 +111,13 @@ export default function Contact() {
             <h3 className="text-4xl md:text-5xl font-serif font-bold leading-tight mb-8">
               Let's build something <span className="text-primary">extraordinary.</span>
             </h3>
-            
+
             <p className="text-muted-foreground text-lg md:text-xl max-w-md mb-12 font-light">
-              We collaborate with visionary brands and individuals to create digital experiences that leave a lasting impact.
+              We collaborate with visionary brands and individuals to create experiences that leave a lasting impact.
             </p>
 
             <div className="space-y-8">
-              <motion.div 
+              <motion.div
                 whileHover={{ x: 10 }}
                 className="flex items-center gap-6 group cursor-none"
               >
@@ -126,7 +132,7 @@ export default function Contact() {
                 </div>
               </motion.div>
 
-              <motion.div 
+              <motion.div
                 whileHover={{ x: 10 }}
                 className="flex items-center gap-6 group cursor-none"
               >
@@ -136,7 +142,7 @@ export default function Contact() {
                 <div>
                   <p className="text-xs text-muted-foreground mb-1 uppercase tracking-[0.2em] font-bold">Visit Us</p>
                   <p className="text-xl font-medium group-hover:text-primary transition-colors duration-300 leading-relaxed">
-                    201, Lexicon Lore LLC, DSC Tower<br/>
+                    201, Lexicon Lore LLC, DSC Tower<br />
                     Dubai Studio City, Dubai, UAE
                   </p>
                 </div>
@@ -145,7 +151,7 @@ export default function Contact() {
           </motion.div>
 
           {/* Right Column - Form */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -154,10 +160,10 @@ export default function Contact() {
           >
             {/* Editorial Form Container */}
             <div className="bg-[#0a0a0a] border-t-2 border-l-2 border-r-2 border-[#111] p-8 md:p-12 relative overflow-hidden group shadow-[20px_20px_0px_0px_rgba(123,212,234,0.1)] transition-transform hover:-translate-y-2 hover:-translate-x-2 duration-500">
-              
+
               <AnimatePresence mode="wait">
                 {isSuccess ? (
-                  <motion.div 
+                  <motion.div
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 1.1 }}
@@ -180,13 +186,12 @@ export default function Contact() {
                           Your Name
                         </label>
                         <div className="relative">
-                          <Input 
+                          <Input
                             {...register("name")}
-                            placeholder="ALICE WONDERLAND" 
+                            placeholder="ALICE WONDERLAND"
                             disabled={isSubmitting}
-                            className={`bg-transparent border-0 border-b-2 focus-visible:ring-0 px-0 h-14 rounded-none font-serif text-xl placeholder:text-white/20 transition-all duration-300 ${
-                              errors.name ? 'border-red-500/50' : 'border-white/20 focus-visible:border-primary'
-                            }`}
+                            className={`bg-transparent border-0 border-b-2 focus-visible:ring-0 px-0 h-14 rounded-none font-serif text-xl placeholder:text-white/20 transition-all duration-300 ${errors.name ? 'border-red-500/50' : 'border-white/20 focus-visible:border-primary'
+                              }`}
                           />
                           {errors.name && (
                             <span className="text-[10px] text-red-500/70 font-mono tracking-widest absolute -bottom-6 left-0 uppercase">
@@ -195,20 +200,19 @@ export default function Contact() {
                           )}
                         </div>
                       </div>
-                      
+
                       <div className="space-y-2 group/input">
                         <label className="text-xs uppercase tracking-[0.2em] text-muted-foreground font-black group-focus-within/input:text-primary transition-colors">
                           Email Address
                         </label>
                         <div className="relative">
-                          <Input 
+                          <Input
                             {...register("email")}
                             type="email"
-                            placeholder="hello@example.com" 
+                            placeholder="hello@example.com"
                             disabled={isSubmitting}
-                            className={`bg-transparent border-0 border-b-2 focus-visible:ring-0 px-0 h-14 rounded-none font-serif text-xl placeholder:text-white/20 transition-all duration-300 ${
-                              errors.email ? 'border-red-500/50' : 'border-white/20 focus-visible:border-primary'
-                            }`}
+                            className={`bg-transparent border-0 border-b-2 focus-visible:ring-0 px-0 h-14 rounded-none font-serif text-xl placeholder:text-white/20 transition-all duration-300 ${errors.email ? 'border-red-500/50' : 'border-white/20 focus-visible:border-primary'
+                              }`}
                           />
                           {errors.email && (
                             <span className="text-[10px] text-red-500/70 font-mono tracking-widest absolute -bottom-6 left-0 uppercase">
@@ -224,13 +228,12 @@ export default function Contact() {
                         Project Details
                       </label>
                       <div className="relative">
-                        <Textarea 
+                        <Textarea
                           {...register("message")}
-                          placeholder="Tell us about the scope, timeline, and vision..." 
+                          placeholder="Tell us about the scope, timeline, and vision..."
                           disabled={isSubmitting}
-                          className={`bg-transparent border-0 border-b-2 focus-visible:ring-0 px-0 pt-4 min-h-[120px] rounded-none font-serif text-xl placeholder:text-white/20 resize-none transition-all duration-300 ${
-                            errors.message ? 'border-red-500/50' : 'border-white/20 focus-visible:border-primary'
-                          }`}
+                          className={`bg-transparent border-0 border-b-2 focus-visible:ring-0 px-0 pt-4 min-h-[120px] rounded-none font-serif text-xl placeholder:text-white/20 resize-none transition-all duration-300 ${errors.message ? 'border-red-500/50' : 'border-white/20 focus-visible:border-primary'
+                            }`}
                         />
                         {errors.message && (
                           <span className="text-[10px] text-red-500/70 font-mono tracking-widest absolute -bottom-6 left-0 uppercase">
@@ -240,8 +243,8 @@ export default function Contact() {
                       </div>
                     </div>
 
-                    <Button 
-                      type="submit" 
+                    <Button
+                      type="submit"
                       disabled={isSubmitting}
                       className="w-full h-16 text-lg font-bold bg-primary hover:bg-white text-background rounded-none uppercase tracking-widest transition-all duration-500 hover:scale-[1.02] disabled:opacity-50 disabled:hover:scale-100"
                     >
@@ -253,7 +256,7 @@ export default function Contact() {
                           </>
                         ) : (
                           <>
-                            Contact Us 
+                            Contact Us
                             <ArrowRight className="w-5 h-5" />
                           </>
                         )}

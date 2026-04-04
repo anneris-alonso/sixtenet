@@ -3,10 +3,10 @@ import { motion } from "framer-motion";
 export default function Footer() {
   return (
     <footer className="relative w-full bg-background pt-0 pb-8 overflow-hidden border-t border-white/10" id="contact">
-      
+
       {/* ─── SECCIÓN CTA: Let's Talk / Ideas. con video de fondo ─── */}
       <div className="relative w-full py-32 md:py-40 flex flex-col items-center justify-center overflow-hidden">
-        
+
         {/* Video en loop como fondo */}
         <video
           src="/the_bus_hero.mp4"
@@ -68,7 +68,7 @@ export default function Footer() {
               A mobile creative studio crafting high-end content that travels the world.
             </p>
           </div>
-          
+
           <div>
             <h4 className="font-medium tracking-widest uppercase mb-6 text-xs text-muted-foreground">Socials</h4>
             <ul className="flex flex-col gap-3">
@@ -79,15 +79,15 @@ export default function Footer() {
               ))}
             </ul>
           </div>
-          
+
           <div>
             <h4 className="font-medium tracking-widest uppercase mb-6 text-xs text-muted-foreground">Contact</h4>
             <ul className="flex flex-col gap-3">
               <li><a href="mailto:projects@lexiconlore.com" className="hover:text-primary transition-colors hover-trigger">projects@lexiconlore.com</a></li>
-              <li><a href="tel:+1234567890" className="hover:text-primary transition-colors hover-trigger">+1 (234) 567-890</a></li>
+              {/* <li><a href="tel:+1234567890" className="hover:text-primary transition-colors hover-trigger">+1 (234) 567-890</a></li> */}
               <li className="mt-4 text-muted-foreground">
-                Lexicon Lore LLC<br/>
-                201, DSC Tower, Dubai Studio City<br/>
+                Lexicon Lore<br />
+                201, DSC Tower, Dubai Studio City<br />
                 Dubai, United Arab Emirates
               </li>
             </ul>

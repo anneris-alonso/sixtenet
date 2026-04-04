@@ -10,20 +10,20 @@ const teamMembers = [
   { id: "05", name: "IRIS ABUSO", role: "OPERATIONS MANAGER", image: "/team/iris.jpg" },
   { id: "06", name: "JADE MARTINEZ", role: "3D DESIGNER", image: "/team/jade.jpg" },
   { id: "07", name: "MALAKA PRABATH", role: "SOUND ENGINEER", image: "/team/malaka.jpg" },
-  { id: "08", name: "PAUL CAJIUAT", role: "LOGISTICS SPECIALIST", image: "/team/paul.jpg" },
-  { id: "09", name: "PETER MAGHARI", role: "CAMERA OPERATOR", image: "/team/pete.jpg" },
+  { id: "08", name: "PAUL CAJIUAT", role: "IT SPECIALIST", image: "/team/paul.jpg" },
+  { id: "09", name: "PETER MAGHARI", role: "CONTENT ASSOCIATE", image: "/team/pete.jpg" },
   { id: "10", name: "ROMAN ROMANO", role: "SENIOR EDITOR", image: "/team/roman.jpg" },
   { id: "11", name: "SIMRAN HEMNANI", role: "PRODUCTION ASSISTANT", image: "/team/simra.jpg" },
   { id: "12", name: "TOM NAUW", role: "LIGHTING GAFFER", image: "/team/tom.jpg" },
-  { id: "13", name: "VICTOR ORTEGA", role: "GRAPHICS DESIGNER", image: "/team/victor.jpg" },
-  { id: "14", name: "BINARA ABAYAWARDANA", role: "GRAPHICS DESIGNER", image: "/team/binara.jpg" },
+  { id: "13", name: "VICTOR ORTEGA", role: "GRAPHIC DESIGNER", image: "/team/victor.jpg" },
+  { id: "14", name: "BINARA ABAYAWARDANA", role: "GRAPHIC DESIGNER", image: "/team/binara.jpg" },
   { id: "15", name: "ANNE ALONSO", role: "SOFTWARE ENGINEER", image: "/team/anne.jpeg" },
 ];
 
 export default function Team() {
   const [activeIndex, setActiveIndex] = useState(0);
   const activeMember = teamMembers[activeIndex];
-  
+
   // Split name for editorial styling
   const nameParts = activeMember.name.split(" ");
   const firstName = nameParts[0];
@@ -32,7 +32,7 @@ export default function Team() {
   const nextSlide = useCallback(() => {
     setActiveIndex((prev) => (prev + 1) % teamMembers.length);
   }, []);
-  
+
   const prevSlide = () => {
     setActiveIndex((prev) => (prev - 1 + teamMembers.length) % teamMembers.length);
   };
@@ -59,8 +59,14 @@ export default function Team() {
 
   return (
     <section className="py-32 bg-background border-t border-white/5 relative overflow-hidden" id="team">
-      <div className="container mx-auto px-4 md:px-8">
-        
+      <motion.div 
+        initial={{ x: 100, opacity: 0 }}
+        whileInView={{ x: 0, opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+        className="container mx-auto px-4 md:px-8"
+      >
+
         {/* Label Header */}
         <div className="mb-16">
           <motion.p
@@ -76,7 +82,7 @@ export default function Team() {
 
         {/* Main Grid: Left (Large Image) | Right (Info, Track, Controls) */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-24 items-start">
-          
+
           {/* LEFT: Active Member Image */}
           <div className="md:col-span-5 relative">
             <AnimatePresence mode="wait">
@@ -88,8 +94,8 @@ export default function Team() {
                 transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
                 className="relative aspect-[3/4] w-full overflow-hidden border border-white/10 glassmorphism shadow-2xl grayscale"
               >
-                <img 
-                  src={activeMember.image} 
+                <img
+                  src={activeMember.image}
                   alt={activeMember.name}
                   className="w-full h-full object-cover grayscale brightness-90 contrast-110"
                 />
@@ -100,7 +106,7 @@ export default function Team() {
 
           {/* RIGHT: Stack (Info -> Track -> Controls) */}
           <div className="md:col-span-7 flex flex-col justify-between h-auto md:h-full min-h-[500px] lg:min-h-[600px]">
-            
+
             {/* TOP: Active Info (Name & Role) - Aligned with top of image */}
             <div className="mb-12">
               <AnimatePresence mode="wait">
@@ -117,10 +123,10 @@ export default function Team() {
                   </span>
                   <div className="flex flex-col leading-none">
                     <h3 className="text-5xl md:text-8xl font-serif font-bold text-white tracking-tighter uppercase mb-2">
-                        {firstName}
+                      {firstName}
                     </h3>
                     <h3 className="text-5xl md:text-8xl font-serif font-bold tracking-tighter uppercase text-transparent [-webkit-text-stroke:1px_rgba(255,255,255,0.3)]">
-                        {lastName}
+                      {lastName}
                     </h3>
                   </div>
                 </motion.div>
@@ -134,17 +140,17 @@ export default function Team() {
                   <motion.button
                     key={member.id}
                     onClick={() => {
-                        const actualIndex = teamMembers.findIndex(m => m.id === member.id);
-                        setActiveIndex(actualIndex);
+                      const actualIndex = teamMembers.findIndex(m => m.id === member.id);
+                      setActiveIndex(actualIndex);
                     }}
                     initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.1 * index }}
                     className="flex-none w-[calc(33.33%-16px)] aspect-[3/4] relative overflow-hidden group border border-white/5 grayscale hover:grayscale-0 transition-all duration-700 cursor-none"
                   >
-                    <img 
-                      src={member.image} 
-                      alt={member.name} 
+                    <img
+                      src={member.image}
+                      alt={member.name}
                       className="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity duration-700 grayscale"
                     />
                     <div className="absolute inset-0 bg-background/10 group-hover:bg-transparent transition-colors duration-500" />
@@ -155,18 +161,18 @@ export default function Team() {
 
             {/* BOTTOM: Editorial Controls - Aligned with bottom of image */}
             <div className="flex items-center justify-between gap-8 pt-8 border-t border-white/10">
-              
+
               {/* Navigation & Progress */}
               <div className="flex items-center gap-12 flex-grow">
                 {/* Arrows */}
                 <div className="flex gap-4">
-                  <button 
+                  <button
                     onClick={prevSlide}
                     className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center hover:bg-white/10 transition-colors cursor-none group"
                   >
                     <ChevronLeft className="w-5 h-5 text-white/40 group-hover:text-primary transition-colors" />
                   </button>
-                  <button 
+                  <button
                     onClick={() => nextSlide()}
                     className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center hover:bg-white/10 transition-colors cursor-none group"
                   >
@@ -181,7 +187,7 @@ export default function Team() {
                     <span>{teamMembers.length}</span>
                   </div>
                   <div className="h-[2px] bg-white/10 w-full relative">
-                    <motion.div 
+                    <motion.div
                       className="absolute top-0 left-0 h-full bg-primary"
                       animate={{ width: `${progress}%` }}
                       transition={{ duration: 0.5, ease: "easeOut" }}
@@ -204,11 +210,11 @@ export default function Team() {
 
           </div>
         </div>
-      </div>
+      </motion.div>
 
       {/* Decorative Blur */}
       <div className="absolute top-[20%] right-[-5%] w-1/3 h-1/2 bg-primary/5 blur-[120px] rounded-full pointer-events-none" />
-      
+
     </section>
   );
 }

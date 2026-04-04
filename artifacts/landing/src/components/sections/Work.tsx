@@ -16,8 +16,8 @@ import { useRef, useState, useEffect } from "react";
 const projects = [
   { id: 1, title: "The Mobile Studio", category: "Production Unit", image: "/gallery/1.webp" },
   { id: 2, title: "Network Hub",        category: "Connectivity",   image: "/gallery/2.png"  },
-  { id: 3, title: "Command Center",     category: "Interior Setup", image: "/gallery/3.png"  },
-  { id: 4, title: "Field Deployment",   category: "On Location",    image: "/gallery/4.png"  },
+  { id: 3, title: "4K Production Suite", category: "Advanced Monitoring", image: "/gallery/3.png"  },
+  { id: 4, title: "All-Terrain Mobility", category: "Remote Operations",  image: "/gallery/4.png"  },
 ];
 
 export default function Work() {

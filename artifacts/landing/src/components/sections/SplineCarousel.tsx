@@ -23,13 +23,17 @@ export default function SplineCarousel() {
       className="w-full relative overflow-hidden m-0 p-0"
       style={{ height: "100vh" }}
     >
-      {/* ── FILA PRINCIPAL ── altura explícita: 100vh - ticker */}
+      {/* ── FILA PRINCIPAL ── */}
       <div
         className="flex flex-row w-full"
         style={{ height: `calc(100vh - ${TICKER_H}px)` }}
       >
-        {/* LEFT — iframe desplazado -18% para cortar el cielo negro */}
-        <div
+        {/* LEFT — iframe */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
           className="relative bg-[#050505] overflow-hidden"
           style={{ width: "80%", height: "100%" }}
         >
@@ -46,9 +50,6 @@ export default function SplineCarousel() {
               title="Spline 3D Carousel"
             />
           </div>
-          {/* Capa inferior opaca — cubre el área vacía del canvas de Spline en el fondo.
-              Va de transparente (arriba) a negro sólido (abajo) para fundirse suavemente
-              con el ticker. 300px garantiza que cubre incluso la zona más oscura. */}
           <div
             className="absolute bottom-0 left-0 right-0 pointer-events-none"
             style={{
@@ -57,48 +58,54 @@ export default function SplineCarousel() {
               zIndex: 5,
             }}
           />
-        </div>
+        </motion.div>
 
-        {/* RIGHT — Panel turquesa, z-20 sobre el ticker */}
-        <div
-          className="bg-primary flex flex-col items-center justify-between shadow-[-20px_0_50px_rgba(0,0,0,0.5)] pt-6 pb-4 relative"
+        {/* RIGHT — Panel turquesa */}
+        <motion.div
+          initial={{ x: "100%" }}
+          whileInView={{ x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+          className="bg-primary flex flex-col items-center justify-between shadow-[-20px_0_50px_rgba(0,0,0,0.5)] pt-12 pb-8 relative"
           style={{ width: "20%", height: "100%", zIndex: 20 }}
         >
           <p className="text-background/50 text-[12px] tracking-[0.4em] uppercase font-mono">
             02 / Showcase
           </p>
 
-          {/* IN / MO / TION — mismo sistema que THE / BUS en SplineHero */}
+          {/* IN / MOTION — Serif Editorial Style */}
           <div className="flex flex-col items-center select-none">
-            <span
-              className="font-sans font-black uppercase text-background block"
+            <motion.span
+              initial={{ y: 20, opacity: 0 }}
+              whileInView={{ y: 0, opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.8, duration: 0.8 }}
+              className="font-serif font-bold uppercase text-background block"
               style={{ fontSize: "clamp(3.5rem, 7vw, 12rem)", lineHeight: 1 }}
             >
               IN
-            </span>
-            <span
-              className="font-sans font-black uppercase text-transparent block"
+            </motion.span>
+            <motion.span
+              initial={{ scale: 0.9, opacity: 0 }}
+              whileInView={{ scale: 1, opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 1.1, duration: 1 }}
+              className="font-serif font-bold uppercase text-transparent block [writing-mode:vertical-rl] rotate-180 mt-4"
               style={{
                 fontSize: "clamp(2.8rem, 5vw, 7rem)",
                 lineHeight: 1,
-                WebkitTextStroke: "4px hsl(var(--background))",
+                WebkitTextStroke: "2px hsl(var(--background))",
               }}
             >
-              MO
-            </span>
-            <span
-              className="font-sans font-black uppercase text-background block"
-              style={{ fontSize: "clamp(3.5rem, 7vw, 12rem)", lineHeight: 1 }}
-            >
-              TION
-            </span>
+              MOTION
+            </motion.span>
           </div>
 
-          <div className="w-px h-10 bg-background/30" />
-        </div>
+          <div className="w-px h-16 bg-background/30" />
+        </motion.div>
       </div>
 
-      {/* ── TICKER ── altura exacta: TICKER_H px, ancho completo */}
+      {/* ── TICKER ── */}
       <div
         className="w-full bg-black border-t border-white/10 overflow-hidden flex items-center"
         style={{ height: `${TICKER_H}px`, position: "relative", zIndex: 10 }}
