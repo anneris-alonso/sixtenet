@@ -29,11 +29,7 @@ export default function SplineCarousel() {
         style={{ height: `calc(100vh - ${TICKER_H}px)` }}
       >
         {/* LEFT — iframe */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
+        <div
           className="relative bg-[#050505] overflow-hidden"
           style={{ width: "80%", height: "100%" }}
         >
@@ -58,7 +54,7 @@ export default function SplineCarousel() {
               zIndex: 5,
             }}
           />
-        </motion.div>
+        </div>
 
         {/* RIGHT — Panel turquesa */}
         <motion.div

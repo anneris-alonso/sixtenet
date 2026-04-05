@@ -1,45 +1,37 @@
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
+import { AnimatePresence } from "framer-motion";
+import { Sun, Satellite, Camera, Truck, Monitor, Coffee, Mic } from "lucide-react";
 import Navbar from "@/components/sections/Navbar";
 import Footer from "@/components/sections/Footer";
 import CustomCursor from "@/components/sections/CustomCursor";
+import Preloader from "@/components/sections/Preloader";
+import VideoScrollBackground from "@/components/sections/VideoScrollBackground";
 
-const TRANSFORMATION_STEPS = [
-  { 
-    id: "step1", 
-    title: "The Acquisition", 
-    description: "Finding the vessel that would become our home on wheels.", 
-    image: "/attached_assets/MOS@COASTALROAD_(1)_-_Copy_1775042600076.png" 
-  },
-  { 
-    id: "step2", 
-    title: "Stripping Down", 
-    description: "Removing the old to make way for the future of production.", 
-    image: "/attached_assets/Screenshot_2026-04-01_at_1.22.08_PM_-_Copy_1775042600075.png" 
-  },
-  { 
-    id: "step3", 
-    title: "The Signature Blue", 
-    description: "Painting the dream in our iconic LexiconLore turquoise.", 
-    image: "/attached_assets/Screenshot_2026-04-01_at_1.21.49_PM_-_Copy_1775042600075.png" 
-  },
-  { 
-    id: "step4", 
-    title: "Inside the Hub", 
-    description: "Crafting a state-of-the-art studio within the chassis.", 
-    image: "/attached_assets/Screenshot_2026-04-01_at_1.22.15_PM_-_Copy_1775042600075.png" 
-  }
-];
 
 export default function TheBusStory() {
+  const [showPreloader, setShowPreloader] = useState(true);
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const videoSectionRef = useRef<HTMLDivElement>(null);
   const galleryRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     document.documentElement.classList.add('dark');
+
+    // Lock scroll while preloader is active
+    if (showPreloader) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+
     window.scrollTo(0, 0);
-  }, []);
+
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [showPreloader]);
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -57,29 +49,26 @@ export default function TheBusStory() {
   });
 
   return (
-    <div ref={containerRef} className="bg-background text-foreground min-h-screen font-sans selection:bg-primary selection:text-primary-foreground">
+    <div ref={containerRef} className="text-foreground min-h-screen font-sans selection:bg-primary selection:text-primary-foreground">
       <CustomCursor />
+
+      <AnimatePresence>
+        {showPreloader && (
+          <Preloader onComplete={() => setShowPreloader(false)} />
+        )}
+      </AnimatePresence>
+
+      <VideoScrollBackground />
+
       <Navbar />
 
-      <main>
-        {/* HERO SECTION - THE VIDEO */}
+      <motion.main
+        initial={{ opacity: 0 }}
+        animate={{ opacity: showPreloader ? 0 : 1 }}
+        transition={{ duration: 1.2, ease: "easeInOut" }}
+      >
+        {/* HERO CONTENT - NO STICKY VIDEO HERE AS IT IS NOW GLOBAL */}
         <section ref={videoSectionRef} className="relative h-screen flex items-center justify-center overflow-hidden">
-          <motion.div 
-            style={{ opacity: videoOpacity, scale: videoScale }}
-            className="absolute inset-0 z-0"
-          >
-            <video 
-              autoPlay 
-              muted 
-              loop 
-              playsInline 
-              className="w-full h-full object-cover grayscale opacity-50 contrast-125"
-            >
-              <source src="/attached_assets/the_bus_hero.mp4" type="video/mp4" />
-            </video>
-            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/20 to-background" />
-          </motion.div>
-
           <div className="container relative z-10 px-6 mt-20">
             <motion.div
               initial={{ opacity: 0, y: 50 }}
@@ -97,41 +86,46 @@ export default function TheBusStory() {
           </div>
         </section>
 
-        {/* NARRATIVE BREAK: MANTRAS FROM DECK */}
-        <section className="py-32 bg-background relative z-10">
-          <div className="container px-6 grid md:grid-cols-2 gap-20">
+        {/* NARRATIVE BREAK: THE OBJECTIVE & SPECS MERGER */}
+        <section className="py-40 relative z-10 border-y border-white/5 bg-black/30 backdrop-blur-sm">
+          <div className="container mx-auto px-4 md:px-8 grid md:grid-cols-1 lg:grid-cols-2 gap-24">
+            {/* Left Column: Narrative */}
             <div className="space-y-12">
               <div className="space-y-4">
-                <span className="text-primary font-mono text-sm tracking-[0.4em] uppercase">The Objective</span>
-                <h2 className="text-4xl md:text-6xl font-serif font-bold uppercase tracking-tight leading-none">
-                  Stories Behind <br /> The Skyline
-                </h2>
+                <motion.p
+                  initial={{ opacity: 0, x: -30 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6 }}
+                  className="text-xs font-bold tracking-[0.3em] uppercase text-primary mb-4"
+                >
+                  The Objective
+                </motion.p>
+                <div className="overflow-hidden font-serif">
+                  <motion.h2
+                    initial={{ y: "100%", opacity: 0 }}
+                    whileInView={{ y: 0, opacity: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.9, ease: "easeOut" }}
+                    className="text-4xl md:text-6xl font-bold tracking-tight leading-none"
+                  >
+                    Stories behind <br /> <span className="italic text-primary font-serif">the skyline.</span>
+                  </motion.h2>
+                </div>
               </div>
-              <p className="text-xl text-muted-foreground font-light leading-relaxed">
-                In this current uncertain season, founders are still showing up, and businesses are still running. 
-                We chose to build here to maintain continuity and tell the stories that matter, wherever they happen.
+              <p className="text-xl text-muted-foreground font-light leading-relaxed max-w-xl">
+                In this current uncertain season, founders are still showing up, and businesses are still running.
+                We chose to build THE BUS to maintain continuity and tell the stories that matter, wherever they happen.
               </p>
             </div>
-            <div className="flex flex-col justify-end">
-              <div className="p-12 border border-white/5 bg-white/[0.02] backdrop-blur-xl">
-                <p className="text-2xl md:text-4xl font-serif italic text-white/90 leading-tight">
-                  "A full-service virtual agency on wheels that can travel to any location regardless of how remote."
-                </p>
-                <div className="w-12 h-1 bg-primary mt-8" />
-              </div>
-            </div>
-          </div>
-        </section>
 
-        {/* TECHNICAL SPECS SECTION: SOLAR, SATELLITE, STUDIO */}
-        <section className="py-32 bg-background border-y border-white/5 relative z-10">
-          <div className="container px-6">
-            <div className="grid md:grid-cols-4 gap-12">
+            {/* Right Column: Key Capabilities Grid */}
+            <div className="grid grid-cols-2 gap-x-8 md:gap-x-12 gap-y-12 self-center pt-8">
               {[
-                { title: "Solar-Powered", desc: "Fully off the grid. No venue required.", icon: "☀" },
-                { title: "Satellite-Connected", desc: "High-speed connectivity anywhere.", icon: "📡" },
-                { title: "Fully Equipped", desc: "Green screen, lights, 4k cameras.", icon: "📸" },
-                { title: "Road-Legal", desc: "Cross-border across the Middle East.", icon: "🚛" }
+                { title: "Solar-Powered", desc: "Fully off the grid. No venue required.", icon: Sun },
+                { title: "Satellite-Connected", desc: "High-speed connectivity anywhere.", icon: Satellite },
+                { title: "Fully Equipped", desc: "Green screen, lights, 4k cameras.", icon: Camera },
+                { title: "Road-Legal", desc: "Cross-border across the Middle East.", icon: Truck }
               ].map((spec, i) => (
                 <motion.div 
                   key={spec.title}
@@ -141,98 +135,102 @@ export default function TheBusStory() {
                   transition={{ delay: i * 0.1 }}
                   className="space-y-4"
                 >
-                  <div className="text-3xl text-primary">{spec.icon}</div>
-                  <h4 className="text-xl font-serif font-bold uppercase tracking-tight">{spec.title}</h4>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{spec.desc}</p>
+                  <div className="w-14 h-14 flex items-center justify-center border border-primary/30 text-primary mb-6">
+                    <spec.icon strokeWidth={1} size={28} />
+                  </div>
+                  <div className="space-y-2">
+                    <h4 className="text-[20px] font-serif font-bold uppercase tracking-widest text-white leading-tight">{spec.title}</h4>
+                    <p className="text-[15px] text-muted-foreground leading-relaxed">{spec.desc}</p>
+                  </div>
                 </motion.div>
               ))}
             </div>
           </div>
         </section>
 
-        {/* TRANSFORMATION GALLERY - HORIZONTAL SCROLL CONCEPT */}
-        <section ref={galleryRef} className="relative py-32 overflow-hidden bg-[#050505]">
-          <div className="container px-6 mb-16">
-            <h2 className="text-3xl md:text-5xl font-serif font-bold uppercase tracking-tighter">
-              The <span className="text-primary italic">Metamorphosis</span>
-            </h2>
-          </div>
-
-          <div className="flex gap-8 px-6 md:px-20 overflow-x-auto no-scrollbar pb-20">
-            {TRANSFORMATION_STEPS.map((step) => (
-              <motion.div 
-                key={step.id}
-                initial={{ opacity: 0, x: 50 }}
+        {/* THE ARCHITECTURE - REAL EXPERTISE STYLE WITH HOVER REVEAL */}
+        <section className="py-40 relative z-10 border-t border-white/5">
+          <div className="container mx-auto px-4 md:px-8">
+            <div className="mb-20">
+              <motion.p
+                initial={{ opacity: 0, x: -30 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
-                className="flex-none w-[85vw] md:w-[45vw] group"
+                className="text-xs font-bold tracking-[0.3em] uppercase text-primary mb-4"
               >
-                <div className="relative aspect-[16/9] overflow-hidden border border-white/10 grayscale group-hover:grayscale-0 transition-all duration-700">
-                  <img 
-                    src={step.image} 
-                    alt={step.title} 
-                    className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-1000"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60" />
-                </div>
-                <div className="mt-8 space-y-2">
-                  <h3 className="text-2xl font-serif font-bold uppercase text-white">{step.title}</h3>
-                  <p className="text-muted-foreground font-light">{step.description}</p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </section>
-
-        {/* ANATOMY OF CREATIVITY - GRID */}
-        <section className="py-40 bg-background">
-          <div className="container px-6 grid md:grid-cols-2 gap-32 items-center">
-            <div className="order-2 md:order-1 relative">
-              <div className="absolute -inset-4 bg-primary/10 blur-3xl opacity-30 pointer-events-none" />
-              <div className="grid grid-cols-2 gap-4">
-                <div className="bg-white/5 aspect-square border border-white/10 flex flex-col items-center justify-center p-8 text-center group hover:bg-primary transition-colors">
-                  <span className="text-lg font-serif font-bold group-hover:text-background uppercase leading-none mb-2">Editing</span>
-                  <span className="text-xs group-hover:text-background/80 opacity-60 uppercase font-mono tracking-tighter">Suite</span>
-                </div>
-                <div className="bg-white/5 aspect-square border border-white/10 flex flex-col items-center justify-center p-8 text-center group hover:bg-primary transition-colors">
-                  <span className="text-lg font-serif font-bold group-hover:text-background uppercase leading-none mb-2">Hospitality</span>
-                  <span className="text-xs group-hover:text-background/80 opacity-60 uppercase font-mono tracking-tighter">Studio</span>
-                </div>
-                <div className="bg-white/5 aspect-square border border-white/10 flex flex-col items-center justify-center p-8 text-center group hover:bg-primary transition-colors">
-                  <span className="text-lg font-serif font-bold group-hover:text-background uppercase leading-none mb-2">4K</span>
-                  <span className="text-xs group-hover:text-background/80 opacity-60 uppercase font-mono tracking-tighter">Camera</span>
-                </div>
-                <div className="bg-white/5 aspect-square border border-white/10 flex flex-col items-center justify-center p-8 text-center group hover:bg-primary transition-colors">
-                  <span className="text-lg font-serif font-bold group-hover:text-background uppercase leading-none mb-2">Global</span>
-                  <span className="text-xs group-hover:text-background/80 opacity-60 uppercase font-mono tracking-tighter">Reach</span>
-                </div>
-              </div>
-            </div>
-            <div className="order-1 md:order-2 space-y-10">
-              <h2 className="text-4xl md:text-6xl font-serif font-bold uppercase tracking-tight">
-                THE ANATOMY OF <br /> <span className="text-primary italic">CREATIVITY.</span>
+                The Architecture
+              </motion.p>
+              <h2 className="text-4xl md:text-6xl font-serif font-bold tracking-tight max-w-4xl leading-tight">
+                The architecture of <br /> <span className="text-primary italic">production.</span>
               </h2>
-              <div className="space-y-6">
-                <div className="flex gap-6 pb-6 border-b border-white/5 items-start">
-                  <div className="text-primary pt-1">01</div>
-                  <p className="text-muted-foreground">High-end production suite with dual-monitor arrangement and soundproofing for focused editing anywhere.</p>
+            </div>
+
+            <div className="w-full">
+              {[
+                {
+                  id: "01",
+                  title: "Editing Suite",
+                  description: "High-end production suite with dual-monitor arrangement and soundproofing for focused editing anywhere."
+                },
+                {
+                  id: "02",
+                  title: "Hospitality Studio",
+                  description: "Premium hospitality area designed for crew comfort, including coffee station and relaxing seating during long shoots."
+                },
+                {
+                  id: "03",
+                  title: "Technical Hub",
+                  description: "On-board equipment storage housing 4k cameras, professional microphones, and a full lighting array."
+                },
+                {
+                  id: "04",
+                  title: "Global Network",
+                  description: "High-speed satellite connectivity and off-grid power systems for 100% operational continuity in any location."
+                }
+              ].map((item, index) => (
+                <div
+                  key={item.id}
+                  className="border-b border-white/10 relative group"
+                  onMouseEnter={() => setHoveredIndex(index)}
+                  onMouseLeave={() => setHoveredIndex(null)}
+                >
+                  <div className="py-8 md:py-12 flex flex-col md:flex-row md:items-center justify-between gap-4 cursor-none relative z-10">
+                    <div className="flex items-center gap-8 md:gap-16">
+                      <span className="text-xl md:text-2xl text-muted-foreground font-light tabular-nums group-hover:text-primary transition-colors duration-500">
+                        {item.id}
+                      </span>
+                      <h3 className="text-4xl md:text-6xl font-serif font-bold group-hover:text-primary transition-all duration-500">
+                        {item.title}
+                      </h3>
+                    </div>
+
+                    <AnimatePresence>
+                      {hoveredIndex === index && (
+                        <motion.div
+                          initial={{ opacity: 0, width: 0 }}
+                          animate={{ opacity: 1, width: "auto" }}
+                          exit={{ opacity: 0, width: 0 }}
+                          className="hidden md:block overflow-hidden"
+                        >
+                          <p className="w-[400px] text-muted-foreground text-sm leading-relaxed shrink-0">
+                            {item.description}
+                          </p>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+
+                    <p className="md:hidden text-muted-foreground text-sm mt-4">
+                      {item.description}
+                    </p>
+                  </div>
                 </div>
-                <div className="flex gap-6 pb-6 border-b border-white/5 items-start">
-                  <div className="text-primary pt-1">02</div>
-                  <p className="text-muted-foreground">Premium hospitality area designed for crew comfort, including coffee station and relaxing seating during long shoots.</p>
-                </div>
-                <div className="flex gap-6 items-start">
-                  <div className="text-primary pt-1">03</div>
-                  <p className="text-muted-foreground">On-board equipment storage housing 4k cameras, professional microphones, and a full lighting array.</p>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
         </section>
 
-        {/* FINAL MANTRA SECTION */}
-        <section className="py-48 bg-background relative overflow-hidden">
-          <div className="container px-6 text-center space-y-12">
+        <section className="py-48 relative overflow-hidden z-10">
+          <div className="container mx-auto px-4 md:px-8 text-center space-y-12">
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
@@ -246,7 +244,8 @@ export default function TheBusStory() {
             <div className="w-px h-24 bg-gradient-to-b from-primary to-transparent mx-auto" />
           </div>
         </section>
-      </main>
+
+      </motion.main>
       <Footer />
     </div>
   );
