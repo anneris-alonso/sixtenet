@@ -1,55 +1,113 @@
-import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
+import { motion } from "framer-motion";
+import { Zap, Code, Globe, BarChart3, Cpu, Target, Megaphone, Video } from "lucide-react";
 
 const services = [
   {
     id: "01",
-    title: "Brand Strategy",
-    description: "We define your core purpose, positioning, and voice to build a resilient brand foundation that resonates with your audience."
+    icon: Zap,
+    title: "Core Growth Engineering",
+    items: [
+      "Growth Systems Architecture",
+      "Funnel Engineering & Conversion Systems",
+      "Customer Acquisition Infrastructure",
+      "Performance Marketing (Meta, Google, LinkedIn)",
+      "GEO Targeting & Market Localization",
+      "Data-driven Growth Strategy",
+    ],
   },
   {
     id: "02",
-    title: "Digital Design",
-    description: "Crafting immersive, high-end interfaces that perfectly balance aesthetics with intuitive user experience."
+    icon: Code,
+    title: "Software & Platform Development",
+    items: [
+      "Custom Web Platforms (React / Vue / Full-stack)",
+      "SaaS Product Development",
+      "Internal Business Systems (CRM, Automation Tools)",
+      "API Integrations & Data Pipelines",
+      "AI-powered Business Tools",
+      "Workflow Automation (n8n, Zapier, custom pipelines)",
+    ],
   },
   {
     id: "03",
-    title: "Development",
-    description: "Bringing designs to life with robust, scalable engineering and cutting-edge frontend technologies."
+    icon: Globe,
+    title: "Web Experience & Conversion",
+    items: [
+      "High-end Website Design (Awwwards-level)",
+      "Conversion-focused UX/UI",
+      "Interactive Storytelling Websites",
+      "Landing Page Systems",
+      "Web Performance Optimization",
+    ],
   },
   {
     id: "04",
-    title: "Motion & 3D",
-    description: "Elevating digital experiences with bespoke animations, micro-interactions, and cinematic 3D visuals."
-  }
+    icon: BarChart3,
+    title: "Data, Analytics & Optimization",
+    items: [
+      "Analytics Setup (GA4, tracking, events)",
+      "Conversion Tracking & Attribution",
+      "Data Dashboards (custom)",
+      "A/B Testing Systems",
+      "Behavioral Analytics",
+    ],
+  },
+  {
+    id: "05",
+    icon: Cpu,
+    title: "AI & Automation",
+    items: [
+      "AI Marketing Automation",
+      "Lead Qualification Agents",
+      "Chatbots & Conversational Systems",
+      "AI Personalization Engines",
+      "Predictive Customer Models",
+    ],
+  },
+  {
+    id: "06",
+    icon: Target,
+    title: "Branding & Market Positioning",
+    items: [
+      "Brand Strategy (data-backed, not fluff)",
+      "Brand Identity Systems",
+      "Messaging & Positioning",
+      "Market Segmentation",
+      "Rebranding",
+    ],
+  },
+  {
+    id: "07",
+    icon: Megaphone,
+    title: "Acquisition Channels",
+    items: [
+      "SEO (technical + content + GEO SEO)",
+      "Paid Advertising (full funnel)",
+      "Social Media Systems (no posting, SYSTEMS)",
+      "Email Marketing Automation",
+      "Influencer Campaign Systems",
+    ],
+  },
+  {
+    id: "08",
+    icon: Video,
+    title: "Content & Creative",
+    sub: "On-demand via our freelancer network",
+    items: [
+      "Motion Design",
+      "Video Production",
+      "Creative Campaign Assets",
+      "Ad Creatives",
+    ],
+  },
 ];
 
-const containerVariants = {
-  hidden: {},
-  visible: {
-    transition: {
-      staggerChildren: 0.12,
-    },
-  },
-};
-
-const rowVariants = {
-  hidden: { opacity: 0, x: -40 },
-  visible: {
-    opacity: 1,
-    x: 0,
-    transition: { duration: 0.7, ease: "easeOut" as const },
-  },
-};
-
 export default function Services() {
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-
   return (
-    <section className="py-32 border-t border-white/5 overflow-hidden" id="expertise">
+    <section className="py-32 border-t border-white/5" id="expertise">
       <div className="container mx-auto px-4 md:px-8">
-        
-        {/* Título con entrada desde el lateral izquierdo */}
+
+        {/* Header */}
         <div className="mb-16 md:mb-24">
           <motion.p
             initial={{ opacity: 0, x: -30 }}
@@ -58,73 +116,66 @@ export default function Services() {
             transition={{ duration: 0.6 }}
             className="text-xs font-bold tracking-[0.3em] uppercase text-primary mb-4"
           >
-            Our Expertise
+            Our Services
           </motion.p>
-
           <div className="overflow-hidden">
-            <motion.p
+            <motion.h2
               initial={{ y: "100%", opacity: 0 }}
               whileInView={{ y: 0, opacity: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.9, ease: "easeOut" }}
               className="text-3xl md:text-5xl font-serif font-bold max-w-3xl leading-tight"
             >
-              <span className="italic text-primary">Epic projects. </span>
-              A full-service agency right at your doorstep.
-            </motion.p>
+              <span className="italic text-primary">Full-spectrum systems. </span>
+              We build what growth actually requires.
+            </motion.h2>
           </div>
         </div>
 
-        {/* Lista de servicios con Stagger */}
-        <motion.div
-          className="w-full"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-80px" }}
-        >
-          {services.map((service, index) => (
-            <motion.div 
+        {/* Service cards grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-px bg-white/5">
+          {services.map((service, i) => (
+            <motion.div
               key={service.id}
-              variants={rowVariants}
-              className="border-b border-white/10 relative group hover-trigger"
-              onMouseEnter={() => setHoveredIndex(index)}
-              onMouseLeave={() => setHoveredIndex(null)}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: i * 0.06 }}
+              className="group bg-[#0a0a0a] p-7 flex flex-col gap-6 hover:bg-white/[0.04] transition-colors duration-500"
             >
-              <div className="py-8 md:py-12 flex flex-col md:flex-row md:items-center justify-between gap-4 cursor-none relative z-10">
-                <div className="flex items-center gap-8 md:gap-16">
-                  <span className="text-xl md:text-2xl text-muted-foreground font-light tabular-nums group-hover:text-primary transition-colors duration-500">
-                    {service.id}
-                  </span>
-                  <h3 className="text-4xl md:text-6xl font-serif font-bold group-hover:text-primary transition-all duration-500">
-                    {service.title}
-                  </h3>
-                </div>
-                
-                <AnimatePresence>
-                  {hoveredIndex === index && (
-                    <motion.div
-                      initial={{ opacity: 0, width: 0 }}
-                      animate={{ opacity: 1, width: "auto" }}
-                      exit={{ opacity: 0, width: 0 }}
-                      className="hidden md:block overflow-hidden"
-                    >
-                      <p className="w-[300px] text-muted-foreground text-sm leading-relaxed shrink-0">
-                        {service.description}
-                      </p>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-
-                <p className="md:hidden text-muted-foreground text-sm mt-4">
-                  {service.description}
-                </p>
+              {/* Icon + number */}
+              <div className="flex items-center justify-between">
+                <service.icon className="text-primary" size={24} strokeWidth={1.5} />
+                <span className="text-xs font-mono text-white/20 group-hover:text-primary/50 transition-colors duration-500">
+                  {service.id}
+                </span>
               </div>
 
+              {/* Title */}
+              <div>
+                <h3 className="text-base font-serif font-bold uppercase tracking-wide text-white leading-tight group-hover:text-primary transition-colors duration-500">
+                  {service.title}
+                </h3>
+                {service.sub && (
+                  <p className="text-xs text-primary/60 font-mono mt-1">{service.sub}</p>
+                )}
+              </div>
 
+              {/* Divider */}
+              <div className="w-8 h-px bg-primary/30 group-hover:w-full group-hover:bg-primary/60 transition-all duration-700" />
+
+              {/* Items list */}
+              <ul className="space-y-2 flex-1">
+                {service.items.map((item, j) => (
+                  <li key={j} className="flex items-start gap-2 text-xs text-muted-foreground leading-relaxed">
+                    <span className="text-primary/50 mt-0.5 shrink-0">—</span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
             </motion.div>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );

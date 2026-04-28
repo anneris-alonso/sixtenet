@@ -15,7 +15,7 @@ export default function Navbar() {
       setHidden(false);
     }
     
-    if (latest > 50) {
+    if (latest > (window.innerHeight * 0.8)) {
       setIsScrolled(true);
     } else {
       setIsScrolled(false);
@@ -56,9 +56,9 @@ export default function Navbar() {
       <div className={`w-full h-20 flex items-center transition-all duration-500 ${isScrolled ? "container mx-auto px-6" : "pr-6"}`}>
         
         {/* Cambia su contenedor de centrado rígido (sobre la barra turquesa) a alineación fluida natural al scrollear */}
-        <div className={`transition-all duration-500 ${isScrolled ? "w-auto" : "w-[30%] lg:w-[25%] flex justify-center"}`}>
+        <div className={`transition-all duration-500 ${isScrolled ? "w-auto opacity-100" : "w-[30%] lg:w-[25%] flex justify-center opacity-0 pointer-events-none"}`}>
           <Link href="/" className="text-xl md:text-2xl font-serif font-bold tracking-tighter uppercase z-10 hover-trigger text-white drop-shadow-md">
-            {isScrolled ? "THE BUS" : "LEXICONLORE"}<span className={isScrolled ? "text-primary" : "text-white"}>.</span>
+            SIXTENET<span className="text-primary">.</span>
           </Link>
         </div>
 
@@ -66,9 +66,12 @@ export default function Navbar() {
         
         <nav className="hidden md:flex items-center gap-8">
           {[
+            { name: "Services", href: "/#expertise" },
+            { name: "Process", href: "/#process" },
+            { name: "Work", href: "/#work" },
+            { name: "Packages", href: "/#packages" },
             { name: "About", href: "/#about" },
-            { name: "Expertise", href: "/#expertise" },
-            { name: "The Bus Story", href: "/the-bus-story" },
+            { name: "Team", href: "/#team" },
             { name: "Contact", href: "/#contact" }
           ].map((item) => (
             <Link 

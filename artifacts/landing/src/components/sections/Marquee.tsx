@@ -2,9 +2,21 @@ import { motion } from "framer-motion";
 
 export default function Marquee() {
   const words = [
-    "STRATEGY", "·", "BRANDING", "·", "DIGITAL", "·", "DESIGN", "·", 
-    "MOTION", "·", "DEVELOPMENT", "·", "STRATEGY", "·", "BRANDING", "·", 
-    "DIGITAL", "·", "DESIGN", "·", "MOTION", "·", "DEVELOPMENT", "·"
+    "SIXTENET", "·",
+    "GROWTH SYSTEMS", "·",
+    "REVENUE ENGINEERING", "·",
+    "CONVERSION ARCHITECTURE", "·",
+    "AI AUTOMATION", "·",
+    "CUSTOM PLATFORMS", "·",
+    "PERFORMANCE MARKETING", "·",
+    "DATA-DRIVEN GROWTH", "·",
+    "SAAS DEVELOPMENT", "·",
+    "BUSINESS INFRASTRUCTURE", "·",
+    "GROWTH SYSTEMS", "·",
+    "REVENUE ENGINEERING", "·",
+    "CONVERSION ARCHITECTURE", "·",
+    "AI AUTOMATION", "·",
+    "CUSTOM PLATFORMS", "·",
   ];
 
   return (

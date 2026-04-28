@@ -103,8 +103,8 @@ export default function Hero() {
             transition={{ delay: 0.3, duration: 0.9, ease: "easeOut" }}
             className="text-lg md:text-2xl text-muted-foreground max-w-2xl font-light leading-relaxed"
           >
-            We support the business ecosystem by architecting narrative-driven digital flagships and 
-            high-end content that elevate the stories of today. From story to impact.
+            We don't deliver services.<br />
+            We engineer growth systems based on operational principles.
           </motion.p>
         </div>
       </motion.div>

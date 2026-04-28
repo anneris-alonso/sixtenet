@@ -60,9 +60,9 @@ export default function About() {
   const bgY = useTransform(scrollYProgress, [0, 1], ["-10%", "10%"]);
 
   const headlineLines = [
-    "People.",
-    "Spaces.",
-    "Experiences.",
+    "Systems.",
+    "Growth.",
+    "Control.",
   ];
 
   return (
@@ -116,10 +116,16 @@ export default function About() {
             className="text-lg md:text-xl text-muted-foreground leading-relaxed max-w-2xl mb-12 space-y-6"
           >
             <p>
-              Lexicon Lore is made up of people from all over the world. We are designers, architects, writers, editors, engineers, musicians, and creatives forming a unique family that works together to create epic projects beyond the imagination. Now, we are taking our human-centered approach <span className="text-white italic">on the road.</span>
+              Sixtenet is a systems engineering studio focused on one thing: <span className="text-white italic">eliminating the friction that limits business growth.</span>
             </p>
             <p>
-              <span className="text-primary font-bold">The Bus</span> is our state-of-the-art mobile production office—a safe, creative cocoon that brings our full-service studio anywhere in the Middle East. Fast, reliable, and right at your doorstep, it’s designed to support founders and elevate the stories of today, wherever they unfold.
+              We operate at the intersection of software, data, and marketing execution. Instead of offering disconnected services, we design and build integrated systems that connect acquisition, operations, and revenue into a single, scalable engine.
+            </p>
+            <p>
+              Our approach is based on a simple principle: <span className="text-primary font-bold">growth is not a campaign problem — it's a systems problem.</span>
+            </p>
+            <p>
+              With experience across SaaS platforms, AI-driven automation, and high-performance digital infrastructure, we work with businesses that need more than execution. They need control, visibility, and the ability to scale without breaking.
             </p>
           </motion.div>
 
@@ -130,10 +136,10 @@ export default function About() {
             transition={{ duration: 0.9, delay: 0.6 }}
           >
             <Link
-              href="/the-bus-story"
+              href="/#work"
               className="inline-block border-2 border-white text-white font-bold uppercase tracking-widest text-sm px-10 py-5 hover:bg-primary hover:border-primary hover:text-background transition-all duration-400 cursor-none"
             >
-              The Bus Story
+              See Our Work
             </Link>
           </motion.div>
         </motion.div>

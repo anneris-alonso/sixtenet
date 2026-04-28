@@ -28,7 +28,7 @@ export default function Preloader({ onComplete }: PreloaderProps) {
           className="fixed inset-0 z-[100] bg-background flex items-center justify-center overflow-hidden"
         >
           <div className="flex flex-col items-center gap-2 md:gap-4 select-none">
-            {/* THE - Solid White */}
+            {/* SIX - Solid White */}
             <motion.span
               initial={{ y: 40, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
@@ -39,10 +39,10 @@ export default function Preloader({ onComplete }: PreloaderProps) {
               }}
               className="text-[12vw] md:text-[8vw] font-sans font-black tracking-tighter text-white leading-none"
             >
-              THE
+              SIX
             </motion.span>
 
-            {/* BUS - Outline White */}
+            {/* TENET - Outline White */}
             <motion.span
               initial={{ y: 40, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
@@ -54,7 +54,7 @@ export default function Preloader({ onComplete }: PreloaderProps) {
               className="text-[15vw] md:text-[10vw] font-sans font-black tracking-tighter text-transparent leading-none"
               style={{ WebkitTextStroke: "2px white" }}
             >
-              BUS
+              TENET
             </motion.span>
 
             <motion.div

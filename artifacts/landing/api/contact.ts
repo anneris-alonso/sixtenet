@@ -29,8 +29,8 @@ export default async function handler(req: any, res: any) {
 
     // 3. Send Email via Resend
     const { data, error } = await resend.emails.send({
-      from: 'The Bus Website <onboarding@resend.dev>', // Update with verified domain in production
-      to: ['projects@lexiconlore.com'],
+      from: 'SixTenet Website <onboarding@resend.dev>', // Update with verified domain in production
+      to: ['anneris.alonso@gmail.com'],
       subject: `New Contact Request from ${validatedData.name}`,
       replyTo: validatedData.email,
       html: `

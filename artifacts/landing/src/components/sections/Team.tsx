@@ -3,22 +3,12 @@ import { useState, useEffect, useCallback } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const teamMembers = [
-  { id: "01", name: "ALEXANDER WOOD", role: "FOUNDER & CEO", image: "/team/alexander.png" },
-  { id: "02", name: "TOM NAUW", role: "COMMERCIAL DIRECTOR", image: "/team/tom.jpg" },
-  { id: "03", name: "IRIS ABUSO", role: "PRODUCTION MANAGER", image: "/team/iris.jpg" },
-  { id: "04", name: "CHRISTIAN PASCUAL", role: "PRODUCTION COORDINATOR", image: "/team/chris.jpg" },
-  { id: "05", name: "DAMIAN RODRIGUEZ", role: "AI SPECIALIST", image: "/team/damian.jpg" },
-  { id: "06", name: "ROMAN ROMANO", role: "STUDIO DIRECTOR", image: "/team/roman.jpg" },
-  { id: "07", name: "ANNE ALONSO", role: "SOFTWARE ENGINEER", image: "/team/anne.jpeg" },
-  { id: "08", name: "PAUL CAJIUAT", role: "IT SPECIALIST", image: "/team/paul.jpg" },
-  { id: "09", name: "VICTOR ORTEGA", role: "GRAPHIC DESIGNER", image: "/team/victor.jpg" },
-  { id: "10", name: "MALAKA PRABATH", role: "LEAD STUDIO PRODUCER", image: "/team/malaka.jpg" },
-  { id: "11", name: "ANGELICA BAÑARES", role: "CONTENT PRODUCER", image: "/team/angelica.jpg" },
-  { id: "12", name: "JADE MARTINEZ", role: "3D DESIGNER", image: "/team/jade.jpg" },
-  { id: "13", name: "PETER MAGHARI", role: "CONTENT ASSOCIATE", image: "/team/pete.jpg" },
-  { id: "14", name: "SIMRAN HEMNANI", role: "CREATIVE", image: "/team/simra.jpg" },
-  { id: "15", name: "BINARA ABAYAWARDANA", role: "GRAPHIC DESIGNER", image: "/team/binara.jpg" },
-  { id: "16", name: "IMELDA RODRIGO", role: "ASSISTANT", image: "/team/imelda.jpg" },
+  { id: "01", name: "ANNE ALONSO", role: "FOUNDER & CEO", image: "/team/anne.png" },
+  { id: "02", name: "DAMIAN RODRIGUEZ", role: "SOFTWARE ENGINEER", image: "/team/damian.jpg" },
+  { id: "03", name: "VICTOR ORTEGA", role: "GRAPHIC DESIGNER", image: "/team/victor.jpg" },
+  { id: "04", name: "MALAKA PRABATH", role: "STUDIO PRODUCER", image: "/team/malaka.jpg" },
+  { id: "05", name: "ANGELICA BAÑARES", role: "CONTENT PRODUCER", image: "/team/angelica.jpg" },
+  { id: "06", name: "IMELDA RODRIGO", role: "ASSISTANT", image: "/team/imelda.jpg" },
 ];
 
 export default function Team() {

@@ -1,5 +1,6 @@
 import { motion, useTransform, useMotionValue, useSpring } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
+import { Link } from "wouter";
 
 /**
  * PREMIUM INTERCEPTED SCROLL PATTERN
@@ -14,10 +15,34 @@ import { useRef, useState, useEffect } from "react";
  */
 
 const projects = [
-  { id: 1, title: "The Mobile Studio", category: "Production Unit", image: "/gallery/1.webp" },
-  { id: 2, title: "Network Hub",        category: "Connectivity",   image: "/gallery/2.png"  },
-  { id: 3, title: "4K Production Suite", category: "Advanced Monitoring", image: "/gallery/3.png"  },
-  { id: 4, title: "All-Terrain Mobility", category: "Remote Operations",  image: "/gallery/4.png"  },
+  { 
+    id: 1, 
+    title: "Eliminating Revenue Friction", 
+    category: "Revenue Systems", 
+    image: "/potfolio/mycosmetic.avif",
+    slug: "my-cosmetic-surgery"
+  },
+  { 
+    id: 2, 
+    title: "AI-Driven Logistics Platform", 
+    category: "System Architecture", 
+    image: "/potfolio/nurox.png",
+    slug: "nurox"
+  },
+  { 
+    id: 3, 
+    title: "High-Impact Interactive Experience", 
+    category: "Digital Storytelling", 
+    image: "/potfolio/thebus.png",
+    slug: "the-bus"
+  },
+  { 
+    id: 4, 
+    title: "Scaling Event Operations", 
+    category: "Operational Systems", 
+    image: "/potfolio/lexiconlore.png",
+    slug: "lexiconlore"
+  },
 ];
 
 export default function Work() {
@@ -165,15 +190,11 @@ export default function Work() {
       {/* Sticky wrapper — preserves titles and progress while images move */}
       <div className="sticky top-0 flex h-screen items-center overflow-hidden">
 
-        {/* Static Title - Mixed Serif/Sans Brutalist Style */}
-        <div className="absolute top-20 left-8 md:left-16 z-10 pointer-events-none mix-blend-difference">
-          <h2 className="text-3xl md:text-6xl font-serif font-bold uppercase tracking-tighter text-white">
-            THE BUS
-            <br />
-            {/*<span className="text-primary text-lg md:text-2xl tracking-widest font-sans">
-              Inside &amp; Out
-            </span>*/}
-          </h2>
+        {/* Static Label — small caps style matching "About Us" */}
+        <div className="absolute top-20 left-8 md:left-16 z-10 pointer-events-none">
+          <p className="text-xs font-bold tracking-[0.3em] uppercase text-primary">
+            Case Studies
+          </p>
         </div>
 
         {/* Progress Hint */}
@@ -199,9 +220,10 @@ export default function Work() {
           className="flex gap-[40px] pl-[5vw] pr-[5vw] will-change-transform items-center"
         >
           {projects.map((project, index) => (
-            <div
+            <Link 
+              href={`/case-study/${project.slug}`} 
               key={project.id}
-              className="group relative flex-none w-[75vw] h-[65vh] flex flex-col justify-end"
+              className="group relative flex-none w-[75vw] h-[65vh] flex flex-col justify-end cursor-pointer block"
             >
               <div className="absolute inset-0 overflow-hidden bg-white/5 grayscale group-hover:grayscale-0 transition-all duration-700 border border-white/10">
                 <img
@@ -220,7 +242,7 @@ export default function Work() {
                   {project.title}
                 </h3>
               </div>
-            </div>
+            </Link>
           ))}
         </motion.div>
       </div>

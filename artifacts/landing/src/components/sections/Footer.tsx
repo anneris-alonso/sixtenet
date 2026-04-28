@@ -4,19 +4,21 @@ export default function Footer() {
   return (
     <footer className="relative w-full bg-background pt-0 pb-8 overflow-hidden border-t border-white/10" id="contact">
 
-      {/* ─── SECCIÓN CTA: Let's Talk / Ideas. con video de fondo ─── */}
-      <div className="relative w-full py-32 md:py-40 flex flex-col items-center justify-center overflow-hidden">
+      {/* ─── SECCIÓN CTA: Let's Talk / Ideas. con fondo de imagen ─── */}
+      <div className="relative w-full py-32 md:py-40 flex flex-col items-center justify-center overflow-hidden bg-black">
 
-        {/* Video en loop como fondo */}
-        <video
-          src="/the_bus_hero.mp4"
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="absolute inset-0 w-full h-full object-cover opacity-40"
-        />
-        <div className="absolute inset-0 bg-black/60" />
+        {/* Imagen de fondo con transparencias dinámicas (más y menos transparentes) */}
+        <div className="absolute inset-0 z-0">
+          <img
+            src="/grid_bg.png"
+            alt="Background Grid"
+            className="w-full h-full object-cover opacity-60"
+            style={{ mixBlendMode: 'screen' }}
+          />
+          {/* Capas de gradiente para crear zonas con distintas opacidades */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black opacity-90" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,black_100%)] opacity-70" />
+        </div>
 
         {/* LET'S TALK — sólido blanco (como "THE" en SplineHero) */}
         <motion.span
@@ -48,7 +50,7 @@ export default function Footer() {
 
         {/* Botón brutalista — cuadrado, sin redondear */}
         <motion.a
-          href="mailto:projects@lexiconlore.com"
+          href="mailto:projects@sixtenet.com"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -63,9 +65,9 @@ export default function Footer() {
       <div className="container mx-auto px-4 md:px-8 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 pt-12 border-t border-white/10 text-sm">
           <div className="col-span-1 md:col-span-2">
-            <h3 className="font-serif font-bold text-2xl mb-4 tracking-tight">The Bus<span className="text-primary">.</span></h3>
+            <h3 className="font-serif font-bold text-2xl mb-4 tracking-tight">SixTenet<span className="text-primary">.</span></h3>
             <p className="text-muted-foreground max-w-xs">
-              A mobile creative studio crafting high-end content that travels the world.
+              Eliminating friction and engineering growth systems for high-performance businesses.
             </p>
           </div>
 
@@ -83,19 +85,18 @@ export default function Footer() {
           <div>
             <h4 className="font-medium tracking-widest uppercase mb-6 text-xs text-muted-foreground">Contact</h4>
             <ul className="flex flex-col gap-3">
-              <li><a href="mailto:projects@lexiconlore.com" className="hover:text-primary transition-colors hover-trigger">projects@lexiconlore.com</a></li>
+              <li><a href="mailto:projects@sixtenet.com" className="hover:text-primary transition-colors hover-trigger">projects@sixtenet.com</a></li>
               {/* <li><a href="tel:+1234567890" className="hover:text-primary transition-colors hover-trigger">+1 (234) 567-890</a></li> */}
               <li className="mt-4 text-muted-foreground">
-                Lexicon Lore<br />
-                201, DSC Tower, Dubai Studio City<br />
-                Dubai, United Arab Emirates
+                SixTenet LLC<br />
+                Dubai Studio City, Dubai, UAE
               </li>
             </ul>
           </div>
         </div>
 
         <div className="mt-16 flex flex-col md:flex-row justify-between items-center text-xs text-muted-foreground py-6 border-t border-white/5">
-          <p>© {new Date().getFullYear()} The Bus Agency. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} SixTenet. All rights reserved.</p>
           <div className="flex gap-6 mt-4 md:mt-0">
             <a href="#" className="hover:text-foreground transition-colors hover-trigger">Privacy Policy</a>
             <a href="#" className="hover:text-foreground transition-colors hover-trigger">Terms of Service</a>

@@ -17,29 +17,26 @@ export default function SplineHero() {
         className="w-[30%] md:w-[30%] lg:w-[25%] h-full bg-primary flex flex-col items-center justify-between z-20 shadow-[20px_0_50px_rgba(0,0,0,0.5)] absolute top-0 left-0 md:relative py-8 md:py-16"
       >
 
-        {/* Espaciador invisible para mantener el título centrado */}
-        <div className="h-10"></div>
-
-        <div className="flex flex-col gap-4 md:gap-8 items-center leading-none font-sans font-black tracking-tighter uppercase select-none mt-20">
-          {/* Palabra THE horizontal grande */}
+        <div className="flex flex-col gap-1 md:gap-2 items-center leading-none font-sans font-black tracking-tighter uppercase select-none mt-10 md:mt-16">
+          {/* Palabra SIX horizontal grande */}
           <motion.span
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.8, duration: 0.8 }}
             className="text-[7vw] md:text-[6vw] text-background"
           >
-            THE
+            SIX
           </motion.span>
 
-          {/* Palabra BUS en rotación vertical (no apilada, sino girada 90 grados) */}
+          {/* Palabra TENET en rotación vertical (no apilada, sino girada 90 grados) */}
           <motion.span
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ delay: 1, duration: 1, ease: "easeOut" }}
-            className="text-transparent md:[writing-mode:vertical-rl] md:rotate-180 text-[10vw] md:text-[12vw] mt-4"
+            className="text-transparent md:[writing-mode:vertical-rl] md:rotate-180 text-[9vw] md:text-[11vw] mt-1"
             style={{ WebkitTextStroke: "3px hsl(var(--background))", lineHeight: "0.9" }}
           >
-            BUS
+            TENET
           </motion.span>
         </div>
 

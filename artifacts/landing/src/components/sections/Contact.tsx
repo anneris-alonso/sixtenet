@@ -126,8 +126,8 @@ export default function Contact() {
                 </div>
                 <div>
                   <p className="text-xs text-muted-foreground mb-1 uppercase tracking-[0.2em] font-bold">Email Us</p>
-                  <a href="mailto:projects@lexiconlore.com" className="text-xl font-medium group-hover:text-primary transition-colors duration-300">
-                    projects@lexiconlore.com
+                  <a href="mailto:projects@sixtenet.com" className="text-xl font-medium group-hover:text-primary transition-colors duration-300">
+                    projects@sixtenet.com
                   </a>
                 </div>
               </motion.div>
@@ -142,7 +142,7 @@ export default function Contact() {
                 <div>
                   <p className="text-xs text-muted-foreground mb-1 uppercase tracking-[0.2em] font-bold">Visit Us</p>
                   <p className="text-xl font-medium group-hover:text-primary transition-colors duration-300 leading-relaxed">
-                    201, Lexicon Lore LLC, DSC Tower<br />
+                    SixTenet LLC<br />
                     Dubai Studio City, Dubai, UAE
                   </p>
                 </div>
