@@ -7,17 +7,13 @@ export default function Footer() {
       {/* ─── SECCIÓN CTA: Let's Talk / Ideas. con fondo de imagen ─── */}
       <div className="relative w-full py-32 md:py-40 flex flex-col items-center justify-center overflow-hidden bg-black">
 
-        {/* Imagen de fondo con transparencias dinámicas (más y menos transparentes) */}
+        {/* Fondo negro con la imagen grid_bg.png superpuesta */}
         <div className="absolute inset-0 z-0">
           <img
             src="/grid_bg.png"
-            alt="Background Grid"
-            className="w-full h-full object-cover opacity-60"
-            style={{ mixBlendMode: 'screen' }}
+            alt="Grid Pattern"
+            className="w-full h-full object-cover opacity-100"
           />
-          {/* Capas de gradiente para crear zonas con distintas opacidades */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black opacity-90" />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,black_100%)] opacity-70" />
         </div>
 
         {/* LET'S TALK — sólido blanco (como "THE" en SplineHero) */}
@@ -50,14 +46,14 @@ export default function Footer() {
 
         {/* Botón brutalista — cuadrado, sin redondear */}
         <motion.a
-          href="mailto:projects@sixtenet.com"
+          href="mailto:anneris.alonso@gmail.com"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.4 }}
           className="relative z-10 inline-block border-2 border-white text-white font-bold uppercase tracking-widest text-xs md:text-sm px-14 py-5 hover:bg-primary hover:border-primary hover:text-background transition-all duration-300"
         >
-          Start a Project
+          Contact Us
         </motion.a>
       </div>
 

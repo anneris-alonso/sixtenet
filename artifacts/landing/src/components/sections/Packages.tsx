@@ -146,7 +146,7 @@ export default function Packages() {
                     : "border border-white/20 text-white hover:border-primary hover:text-primary"
                 }`}
               >
-                Start a Project →
+                Contact Us
               </a>
             </motion.div>
           ))}
