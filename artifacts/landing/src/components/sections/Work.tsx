@@ -101,41 +101,45 @@ export default function Work() {
     let touchStartY = 0;
 
     const handleWheel = (e: WheelEvent) => {
+      if (isReleased) return;
+      const el = sectionRef.current;
+      if (!el) return;
+
       const rect = el.getBoundingClientRect();
       const viewHeight = window.innerHeight;
       
-      // Much more robust activation: 
-      // If the top is near 0 (within 50px) and we haven't finished the horizontal scroll,
-      // or if we are scrolling up and haven't reached the start.
-      const isVisible = rect.top < viewHeight && rect.bottom > 0;
-      if (!isVisible) return;
-
+      // Calculate absolute scroll position of the section
+      const absoluteTop = window.pageYOffset + rect.top;
+      
       const currentX = -xTarget.get();
       const delta    = e.deltaY;
 
-      // Check if we are "locked" in the viewport
-      // A tolerance of 50px helps catch fast scrolls
-      const isAtTop = Math.abs(rect.top) < 50;
+      // ACTIVATION THRESHOLD:
+      // We want to "capture" the scroll if the section is close to the top
+      // and we still have horizontal content to show.
+      const isNearTop = rect.top < 100 && rect.top > -100;
 
-      // LOCK LOGIC:
       // 1. If scrolling DOWN and we have cards to show
-      if (!isReleased && delta > 0 && currentX < maxTranslate && isAtTop) {
+      if (delta > 0 && currentX < maxTranslate && isNearTop) {
         e.preventDefault();
-        // Force the section to the top to avoid "drifting"
-        if (rect.top !== 0) window.scrollTo({ top: el.offsetTop });
+        // Force the section to snap exactly to the top if not already there
+        if (Math.abs(rect.top) > 1) {
+          window.scrollTo({ top: absoluteTop, behavior: 'auto' });
+        }
         
         const nextX = Math.min(currentX + delta, maxTranslate);
         xTarget.set(-nextX);
       }
       // 2. If scrolling UP and we are not at the first card
-      else if (!isReleased && delta < 0 && currentX > 0 && isAtTop) {
+      else if (delta < 0 && currentX > 0 && isNearTop) {
         e.preventDefault();
-        if (rect.top !== 0) window.scrollTo({ top: el.offsetTop });
+        if (Math.abs(rect.top) > 1) {
+          window.scrollTo({ top: absoluteTop, behavior: 'auto' });
+        }
 
         const nextX = Math.max(currentX + delta, 0);
         xTarget.set(-nextX);
       }
-      // Otherwise, the scroll event is allowed to propagate, moving the page vertically
     };
 
     const handleTouchStart = (e: TouchEvent) => {
@@ -143,10 +147,15 @@ export default function Work() {
     };
 
     const handleTouchMove = (e: TouchEvent) => {
+      if (isReleased) return;
+      const el = sectionRef.current;
+      if (!el) return;
+
       const rect = el.getBoundingClientRect();
-      const isAtTop = Math.abs(rect.top) < 50;
+      const absoluteTop = window.pageYOffset + rect.top;
+      const isNearTop = rect.top < 100 && rect.top > -100;
       
-      if (!isAtTop) return;
+      if (!isNearTop) return;
 
       const currentY = e.touches[0].clientY;
       const deltaY   = touchStartY - currentY;
@@ -154,14 +163,18 @@ export default function Work() {
       const multiplier = 1.5;
       const touchDelta = deltaY * multiplier;
 
-      if (!isReleased && touchDelta > 0 && currentX < maxTranslate) {
+      if (touchDelta > 0 && currentX < maxTranslate) {
         e.preventDefault();
-        if (rect.top !== 0) window.scrollTo({ top: el.offsetTop });
+        if (Math.abs(rect.top) > 1) {
+          window.scrollTo({ top: absoluteTop, behavior: 'auto' });
+        }
         const nextX = Math.min(currentX + touchDelta, maxTranslate);
         xTarget.set(-nextX);
-      } else if (!isReleased && touchDelta < 0 && currentX > 0) {
+      } else if (touchDelta < 0 && currentX > 0) {
         e.preventDefault();
-        if (rect.top !== 0) window.scrollTo({ top: el.offsetTop });
+        if (Math.abs(rect.top) > 1) {
+          window.scrollTo({ top: absoluteTop, behavior: 'auto' });
+        }
         const nextX = Math.max(currentX + touchDelta, 0);
         xTarget.set(-nextX);
       }
